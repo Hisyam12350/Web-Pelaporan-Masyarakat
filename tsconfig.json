@@ -16,7 +16,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "plugins": [
       {
         "name": "next"
@@ -29,8 +29,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/app/landing/page.jsx"  ],
+    "**/*.tsx",
+    "src/app/landing/page.jsx"
+  ],
   "exclude": [
     "node_modules"
   ]

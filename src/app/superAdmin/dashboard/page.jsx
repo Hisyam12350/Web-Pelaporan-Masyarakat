@@ -26,13 +26,11 @@ export default function Dashboard() {
       return;
     }
 
-    if (role !== "users") {
-      window.location.href = "/admin/home";
+    if (role === "users") {
+      window.location.href = "/home";
       return;
-    }
-
-    if (role !== "users") {
-      window.location.href = "/superAdmin/dashboard";
+    } else if (role === "admin") {
+      window.location.href = "/admin/dashboard";
       return;
     }
 
@@ -60,61 +58,47 @@ export default function Dashboard() {
   return (
     <main className="flex h-screen bg-[#F0F9FF] font-sans">
       <aside
-        className={`
-    bg-[#0F172A] text-white
-    transition-all duration-300 ease-in-out
-    ${sidebarOpen ? "w-[280px] p-8 opacity-100" : "w-0 p-0 opacity-0"}
-    overflow-hidden
-    hidden md:flex flex-col shadow-2xl sticky top-0 h-screen
-  `}
+        className={`bg-[#0F172A] text-white transition-all duration-300 ease-in-out ${
+          sidebarOpen ? "w-[280px] p-8 opacity-100" : "w-0 p-0 opacity-0"
+        } overflow-hidden hidden md:flex flex-col shadow-2xl sticky top-0 h-screen`}
       >
         <div className={`${sidebarOpen ? "block" : "hidden"}`}>
           <div className="mb-12">
-            <Link href="/home">
-              <h1 className="text-4xl font-extrabold whitespace-nowrap tracking-tight cursor-pointer">
+            <Link href="/dashboard">
+              <h1 className="text-4xl font-extrabold whitespace-nowrap tracking-tight">
                 LAPOR<span className="text-[#06B6D4]">!</span>
               </h1>
             </Link>
             <p className="text-cyan-400 text-sm font-medium mt-1 uppercase tracking-wider whitespace-nowrap">
-              Pengaduan Masyarakat
+              Super Admin Panel
             </p>
           </div>
 
           <nav className="flex flex-col gap-3">
-            {/* Tombol Home - Mengikuti style tombol pasif agar konsisten dengan yang atas jika sedang di Dashboard */}
-            <Link href="/home">
+            <Link href="/superAdmin/home">
               <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
                 Home
               </button>
             </Link>
-
-            {/* Tombol Dashboard - Menjadi tombol Aktif (Biru) sesuai struktur kode pertama */}
-            <Link href="/dashboard">
               <button className="bg-[#06B6D4] text-white px-6 py-4 rounded-2xl text-left font-bold whitespace-nowrap shadow-lg shadow-cyan-900/20 w-full">
                 Dashboard
               </button>
-            </Link>
-
-            <Link href={`/laporan-saya/${userId}`}>
-              <button className="hover:bg-slate-800 px-6 w-full py-4 rounded-2xl text-left transition whitespace-nowrap text-slate-300 hover:text-white font-medium">
-                Laporan Saya
+            <Link href="/superAdmin/kategori">
+              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
+                Kategori
               </button>
             </Link>
-
-            <Link href={`/profil/${userId}`}>
+            <Link href="/superAdmin/monitoring">
+              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
+                Monitoring
+              </button>
+            </Link>
+            <Link href={`/superAdmin/profile/${userId}`}>
               <button className="hover:bg-slate-800 px-6 w-full py-4 rounded-2xl text-left transition whitespace-nowrap text-slate-300 hover:text-white font-medium">
                 Profile
               </button>
             </Link>
           </nav>
-
-          <div className="mt-auto pt-20">
-            <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Butuh bantuan teknis? Hubungi admin pusat kami.
-              </p>
-            </div>
-          </div>
         </div>
       </aside>
 
@@ -140,11 +124,6 @@ export default function Dashboard() {
               Eksplorasi Laporan
             </h1>
           </div>
-          <Link href={`/laporan-saya/${userId}`}>
-            <button className="bg-[#0F172A] text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-[#06B6D4] transition-all hidden sm:block shadow-lg shadow-slate-200">
-              + Buat Laporan
-            </button>
-          </Link>
         </div>
 
         {/* COMMUNITY HIGHLIGHTS (Stats Publik) */}

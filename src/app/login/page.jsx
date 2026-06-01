@@ -30,6 +30,7 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (data.token) {
+        const playLoad = JSON.parse(atob(data.token.split(".")[1]));
         await Swal.fire({
           icon: "success",
           title: "Berhasil!",
@@ -40,9 +41,12 @@ export default function LoginPage() {
 
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);
+        localStorage.setItem("id", playLoad.id);
 
         if (data.role === "admin") {
           router.push("/admin/home");
+        } else if (data.role === "super admin") {
+          router.push("/superAdmin/home");
         } else {
           router.push("/home");
         }

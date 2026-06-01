@@ -29,11 +29,14 @@ export default function ProfilePage() {
       return;
     }
 
-    if (role === "admin") {
-      router.push(`/admin/profile/${id}`);
+    if (role !== "super admin") {
+      window.location.href = "/admin/home";
       return;
-    } else if (role === "super admin") {
+    }
+
+    if (role !== "super admin") {
       router.push(`/superAdmin/profile/${id}`);
+      return;
     }
 
     fetch(`http://localhost:5000/api/users/${id}`, {
@@ -171,36 +174,56 @@ export default function ProfilePage() {
     <main className="flex min-h-screen bg-[#F0F9FF] font-sans">
       {/* SIDEBAR (Sticky & Full Height) */}
       <aside
-        className={`bg-[#0F172A] text-white transition-all duration-300 ease-in-out ${sidebarOpen ? "w-[280px] p-8 opacity-100" : "w-0 p-0 opacity-0"} overflow-hidden hidden md:flex flex-col shadow-2xl sticky top-0 h-screen`}
+        className={`
+    bg-[#0F172A] text-white
+    transition-all duration-300 ease-in-out
+    ${sidebarOpen ? "w-[280px] p-8 opacity-100" : "w-0 p-0 opacity-0"}
+    overflow-hidden
+    hidden md:flex flex-col shadow-2xl sticky top-0 h-screen
+  `}
       >
         <div className={`${sidebarOpen ? "block" : "hidden"}`}>
           <div className="mb-12">
-            <h1 className="text-4xl font-extrabold tracking-tight">
-              LAPOR<span className="text-[#06B6D4]">!</span>
-            </h1>
-            <p className="text-cyan-400 text-sm font-medium mt-1 uppercase tracking-wider">
-              Pengaduan Masyarakat
+            <Link href="/dashboard">
+              <h1 className="text-4xl font-extrabold whitespace-nowrap tracking-tight">
+                LAPOR<span className="text-[#06B6D4]">!</span>
+              </h1>
+            </Link>
+            <p className="text-cyan-400 text-sm font-medium mt-1 uppercase tracking-wider whitespace-nowrap">
+              Super Admin Panel
             </p>
           </div>
+
           <nav className="flex flex-col gap-3">
-            <Link href="/home">
-              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition w-full text-slate-300 hover:text-white font-medium">
+            {/* Tombol Home - Mengikuti style tombol pasif agar konsisten dengan yang atas jika sedang di Dashboard */}
+            <Link href="/superAdmin/home">
+              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
                 Home
               </button>
             </Link>
-            <Link href="/dashboard">
-              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition w-full text-slate-300 hover:text-white font-medium">
+
+            {/* Tombol Dashboard - Menjadi tombol Aktif (Biru) sesuai struktur kode pertama */}
+            <Link href="/superAdmin/dashboard">
+              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
                 Dashboard
               </button>
             </Link>
-            <Link href={`/laporan-saya/${id}`}>
-              <button className="hover:bg-slate-800 w-full px-6 py-4 rounded-2xl text-left transition text-slate-300 hover:text-white font-medium">
-                Laporan Saya
+
+            <Link href="/superAdmin/kategori">
+              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
+                Kategori
               </button>
             </Link>
-            <button className="bg-[#06B6D4] text-white px-6 py-4 rounded-2xl text-left font-bold shadow-lg shadow-cyan-900/20">
+            
+            <Link href="/superAdmin/monitoring">
+              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
+                Monitoring
+              </button>
+            </Link>
+
+            <button className="bg-[#06B6D4] text-white px-6 py-4 rounded-2xl text-left font-bold whitespace-nowrap shadow-lg shadow-cyan-900/20 w-full">
               Profile
-            </button>
+            </button>           
           </nav>
         </div>
       </aside>
@@ -294,22 +317,6 @@ export default function ProfilePage() {
                 <p className="text-[#06B6D4] font-bold text-sm tracking-wide">
                   {users?.email}
                 </p>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 gap-4 w-full mt-10">
-                  <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
-                    <p className="text-[20px] font-black text-[#0F172A]">24</p>
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-                      Laporan
-                    </p>
-                  </div>
-                  <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
-                    <p className="text-[20px] font-black text-green-500">18</p>
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-                      Selesai
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -396,7 +403,7 @@ export default function ProfilePage() {
                     </span>
                   </button>
                   <Link href="/gantiPassword">
-                    <button className="px-8 py-5 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 transition-all">
+                    <button className="px-8 py-5 rounded-2xl font-black te xt-xs uppercase tracking-widest text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 transition-all">
                       Keamanan Akun
                     </button>
                   </Link>

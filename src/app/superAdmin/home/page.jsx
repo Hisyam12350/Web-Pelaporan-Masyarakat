@@ -50,8 +50,8 @@ export default function Dashboar() {
     if (role === "users") {
       window.location.href = "/home";
       return;
-    } else if (role === "super admin") {
-      window.location.href = "/superAdmin/home";
+    } else if (role === "admin") {
+      window.location.href = "/admin/dashboard";
       return;
     }
 
@@ -88,17 +88,13 @@ export default function Dashboar() {
     <main className="flex h-screen bg-[#F0F9FF] font-sans overflow-hidden">
       {/* SIDEBAR */}
       <aside
-        className={`
-    bg-[#0F172A] text-white
-    transition-all duration-300 ease-in-out
-    ${sidebarOpen ? "w-[280px] p-8 opacity-100" : "w-0 p-0 opacity-0"}
-    overflow-hidden
-    hidden md:flex flex-col shadow-2xl sticky top-0 h-screen
-  `}
+        className={`bg-[#0F172A] text-white transition-all duration-300 ease-in-out ${
+          sidebarOpen ? "w-[280px] p-8 opacity-100" : "w-0 p-0 opacity-0"
+        } overflow-hidden hidden md:flex flex-col shadow-2xl sticky top-0 h-screen`}
       >
         <div className={`${sidebarOpen ? "block" : "hidden"}`}>
           <div className="mb-12">
-            <Link href="/admin/home">
+            <Link href="/dashboard">
               <h1 className="text-4xl font-extrabold whitespace-nowrap tracking-tight">
                 LAPOR<span className="text-[#06B6D4]">!</span>
               </h1>
@@ -109,26 +105,26 @@ export default function Dashboar() {
           </div>
 
           <nav className="flex flex-col gap-3">
-            {/* Tombol Home - Mengikuti style tombol pasif agar konsisten dengan yang atas jika sedang di Dashboard */}
-
             <button className="bg-[#06B6D4] text-white px-6 py-4 rounded-2xl text-left font-bold whitespace-nowrap shadow-lg shadow-cyan-900/20 w-full">
               Home
             </button>
 
-            {/* Tombol Dashboard - Menjadi tombol Aktif (Biru) sesuai struktur kode pertama */}
-            <Link href="/admin/dashboard">
+            <Link href="/superAdmin/dashboard">
               <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
                 Dashboard
               </button>
             </Link>
-
-            <Link href="/admin/requestKategori">
+            <Link href="/superAdmin/kategori">
               <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
-                Request Kategori
+                Kategori
               </button>
             </Link>
-
-            <Link href={`/admin/profile/${userId}`}>
+            <Link href="/superAdmin/monitoring">
+              <button className="hover:bg-slate-800 px-6 py-4 rounded-2xl text-left transition whitespace-nowrap w-full text-slate-300 hover:text-white font-medium">
+                Monitoring
+              </button>
+            </Link>
+            <Link href={`/superAdmin/profile/${userId}`}>
               <button className="hover:bg-slate-800 px-6 w-full py-4 rounded-2xl text-left transition whitespace-nowrap text-slate-300 hover:text-white font-medium">
                 Profile
               </button>
@@ -168,7 +164,7 @@ export default function Dashboar() {
 
           <div className="hidden sm:flex items-center bg-white p-1.5 pr-6 rounded-full shadow-sm border border-cyan-100 hover:border-cyan-300 hover:shadow-md transition-all duration-300 group">
             <Link
-              href={`/admin/profile/${userId}`}
+              href={`/superAdmin/profile/${userId}`}
               className="flex items-center gap-3 w-full"
             >
               {/* Avatar Container */}
@@ -438,9 +434,11 @@ export default function Dashboar() {
                   Menampilkan 5 aktivitas terbaru
                 </p>
               </div>
-              <button className="text-xs font-black text-[#0891B2] hover:bg-cyan-50 px-4 py-2 rounded-xl transition-all">
-                LIHAT SEMUA
-              </button>
+              <Link href="/superAdmin/dashboard">
+                <button className="text-xs font-black text-[#0891B2] hover:bg-cyan-50 px-4 py-2 rounded-xl transition-all">
+                  LIHAT SEMUA
+                </button>
+              </Link>
             </div>
 
             <div className="bg-white rounded-[35px] shadow-lg shadow-cyan-900/5 border border-white overflow-hidden">

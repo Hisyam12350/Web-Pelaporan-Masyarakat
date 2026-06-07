@@ -75,7 +75,7 @@ export default function TambahLaporan() {
         Swal.fire({
           icon: "success",
           title: "Berhasil!",
-          text: "Data berhasil diubah!",
+          text: "Data berhasil ditambahkan!",
           confirmButtonColor: "#06B6D4",
         });
         router.push(`/laporan-saya/${id}`);

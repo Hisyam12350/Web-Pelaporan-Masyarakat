@@ -17,17 +17,22 @@ export default function LaporanSayaPage() {
     const role = localStorage.getItem("role");
 
     if (!token) {
-      window.location.href = "/login";
+      window.location.href = "/Login";
       return;
     }
 
-    if (role !== "users") {
-      window.location.href = "/admin/home";
+    if (role === "users") {
+      window.location.href = "/Home";
       return;
     }
 
-    if (role !== "users") {
-      window.location.href = "/superAdmin/dashboard";
+    if (role === "super admin") {
+      window.location.href = "/superadmin";
+      return;
+    }
+
+    if (role === "admin") {
+      window.location.href = "/Admin";
       return;
     }
 
